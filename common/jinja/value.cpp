@@ -522,10 +522,14 @@ const func_builtins & global_builtins() {
             if (!is_val<value_undefined>(arg0) && !is_val<value_undefined>(arg1)) {
                 if (is_val<value_none>(arg0) && is_val<value_none>(arg1)) {
                     res = true;
-                } else if (is_val<value_bool>(arg0) && is_val<value_bool>(arg1) && arg0->as_bool() == arg1->as_bool()) {
-                    res = true;
-                } else if (is_val<value_int>(arg0) && is_val<value_int>(arg1) && arg0->as_int() == arg1->as_int()) {
-                    res = true;
+                } else if (is_val<value_bool>(arg0) && is_val<value_bool>(arg1)) {
+                    if (arg0->as_bool() == arg1->as_bool()) {
+                        res = true;
+                    }
+                } else if (is_val<value_int>(arg0) && is_val<value_int>(arg1)) {
+                    if (arg0->as_int() == arg1->as_int()) {
+                        res = true;
+                    }
                 } else {
                     throw not_implemented_exception("sameas test not implemented for " + arg0->type());
                 }
