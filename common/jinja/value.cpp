@@ -531,7 +531,11 @@ const func_builtins & global_builtins() {
                         res = true;
                     }
                 } else {
-                    throw not_implemented_exception("sameas test not implemented for " + arg0->type());
+                    const bool arg0_supported = is_val<value_none>(arg0) || is_val<value_bool>(arg0) || is_val<value_int>(arg0);
+                    const bool arg1_supported = is_val<value_none>(arg1) || is_val<value_bool>(arg1) || is_val<value_int>(arg1);
+                    if (!arg0_supported && !arg1_supported && arg0->type() == arg1->type()) {
+                        throw not_implemented_exception("sameas test not implemented for " + arg0->type());
+                    }
                 }
             }
             return mk_val<value_bool>(res);
